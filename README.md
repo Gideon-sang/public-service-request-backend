@@ -21,8 +21,3 @@ Admin login: admin@demo.com / Admin@123 (change with ADMIN_EMAIL / ADMIN_PASSWOR
 | POST | /api/requests | logged in |
 | PATCH | /api/requests/{id} | admin |
 
-Protected calls need `Authorization: Bearer <token>`.
-
-## Environment variables (production)
-DATABASE_URL (JDBC), DB_USERNAME, DB_PASSWORD, ADMIN_EMAIL, ADMIN_PASSWORD, JWT_SECRET, CORS_ORIGINS, PORT.
-Never commit your real database password: keep the placeholder in the file and use environment variables when deploying.
