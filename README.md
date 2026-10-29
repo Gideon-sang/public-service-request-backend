@@ -1,23 +1,52 @@
-# Murang'a County - Public Service Request System (Backend)
+# Public Service Request System: Backend API
 
-Spring Boot 3.3 / Java 17 REST API with MySQL, JWT login, citizen and admin roles, request tracking.
+RESTful API for the **Murang'a County Public Service Request System**. Residents report issues such as broken streetlights, water problems and uncollected garbage, and administrators update the status until each one is resolved.
 
-## Run (Eclipse)
-1. File > Import > Maven > Existing Maven Projects > select this folder.
-2. Open `src/main/resources/application.properties` and set `YOUR_MYSQL_PASSWORD` (and the username if not root).
-3. Make sure MySQL is running. The `psrs` database and all tables are created automatically.
-4. Right-click the project > Maven > Update Project (Force Update).
-5. Run `PublicServiceRequestApplication` as a Java Application. API: http://localhost:8080/api
+**Live API:** https://public-service-request-backend.onrender.com
+*(Free Render instance: the first request after idle time may take 50+ seconds.)*
 
-Admin login: admin@demo.com / Admin@123 (change with ADMIN_EMAIL / ADMIN_PASSWORD).
+## Features
 
-## API
-| Method | Path | Access |
-|--------|------|--------|
-| POST | /api/register | public |
-| POST | /api/login | public |
-| GET | /api/me | logged in |
-| GET | /api/requests | logged in (admin sees all) |
-| POST | /api/requests | logged in |
-| PATCH | /api/requests/{id} | admin |
+- JWT authentication with resident and admin roles
+- Submit service requests with category, location, description and photo
+- Status tracking with full history and notes
+- Admin account seeded automatically on first startup
 
+## Tech Stack
+
+Java 17 · Spring Boot · Spring Security · Spring Data JPA · MySQL (Aiven) · Maven · Docker · Render
+
+## Quick Start
+
+```bash
+git clone https://github.com/YOUR-GITHUB-USERNAME/public-service-request-system.git
+cd public-service-request-system
+mvn spring-boot:run
+```
+
+The API runs at `http://localhost:8080`.
+
+## Configuration
+
+| Variable | Description |
+|---|---|
+| `DATABASE_URL` | JDBC URL of the MySQL database |
+| `DB_USERNAME`, `DB_PASSWORD` | Database credentials |
+| `JWT_SECRET` | Token signing key (32+ characters) |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Seeded admin account |
+| `CORS_ORIGINS` | Allowed frontend origin(s) |
+| `PORT` | Server port (default `8080`) |
+
+> **Aiven MySQL:** append `&sessionVariables=sql_require_primary_key=0` to `DATABASE_URL` so Hibernate can create the `request_history` table.
+
+## Deployment
+
+Deployed as a Docker web service on Render. Set the variables above, push to GitHub, and Render redeploys automatically.
+
+## Related
+
+- Frontend: [public-service-request-frontend](https://github.com/YOUR-GITHUB-USERNAME/public-service-request-frontend)
+
+## Author
+
+**Gideon Sang**
